@@ -102,7 +102,7 @@ public class JobData {
 
             for (HashMap.Entry<String, String> job : row.entrySet()) {
 
-                if(job.getValue().toUpperCase().contains(value) || !jobs.contains(row)) {
+                if (job.getValue().contains(value) && !jobs.contains(row)) {
                     jobs.add(row);
                 }
             }
