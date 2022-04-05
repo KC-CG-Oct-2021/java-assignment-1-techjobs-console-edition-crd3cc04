@@ -101,8 +101,8 @@ public class JobData {
         for (HashMap<String, String> row : allJobs) {
 
             for (HashMap.Entry<String, String> job : row.entrySet()) {
-
-                if (job.getValue().contains(value) && !jobs.contains(row)) {
+//add toLowerCase() to key value job.getValue to lowercase value...... then it will lowercase the search term from .contains
+                if (job.getValue().toLowerCase().contains(value.toLowerCase()) && !jobs.contains(row)) {
                     jobs.add(row);
                 }
             }
