@@ -6,6 +6,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.*;
+import java.util.stream.Collectors;
+
+import static com.sun.org.apache.xalan.internal.lib.ExsltSets.distinct;
+
+
 
 /**
  * Created by LaunchCode
@@ -74,7 +79,7 @@ public class JobData {
 
         for (HashMap<String, String> row : allJobs) {
 
-            String aValue = row.get(column);
+            String aValue = row.get(column).toLowerCase();
 
             if (aValue.contains(value)) {
                 jobs.add(row);
@@ -98,17 +103,20 @@ public class JobData {
         // TODO - implement this method
         ArrayList<HashMap<String, String>> jobs = new ArrayList<>();
 
-        for (HashMap<String, String> row : allJobs) {
+        for (HashMap<String, String> row : allJobs) { // Loop to loop this loop is iterating through allJobs and pulling each job in the csv file; next loop is iterating the that list and grabbing each key row (position, location, employer, etc) and adding them to their own row
 
-            for (HashMap.Entry<String, String> job : row.entrySet()) {
+            for (Map.Entry<String, String> newRow : row.entrySet()) {
 //add toLowerCase() to key value job.getValue to lowercase value...... then it will lowercase the search term from .contains
-                if (job.getValue().toLowerCase().contains(value.toLowerCase()) && !jobs.contains(row)) {
+                if (newRow.getValue().toLowerCase().contains(value.toLowerCase()) && !jobs.contains(row)) {
+                    jobs.remove(row);
                     jobs.add(row);
                 }
             }
         }
         return jobs;
     }
+
+
 
     /**
      * Read in data from a CSV file and store it in a list
